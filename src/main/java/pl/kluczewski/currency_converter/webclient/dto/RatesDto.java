@@ -4,6 +4,5 @@ import lombok.Getter;
 
 @Getter
 public class RatesDto {
-    double bid;
-    double ask;
+    double mid;
 }
