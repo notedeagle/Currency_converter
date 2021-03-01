@@ -5,6 +5,7 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class NbpAllCurrencyDto {
+public class NbpAllTableDto {
+    private String effectiveDate;
     private List<AllRatesDto> rates;
 }

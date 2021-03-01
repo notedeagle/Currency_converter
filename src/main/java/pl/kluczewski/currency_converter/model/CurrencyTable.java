@@ -7,7 +7,7 @@ import java.util.Map;
 
 @Builder
 @Getter
-public class AllCurrencyDto {
+public class CurrencyTable {
+    private String effectiveDate;
     private Map<String, Double> rates;
-    private String base;
 }
