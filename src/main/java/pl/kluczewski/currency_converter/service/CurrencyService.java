@@ -3,7 +3,7 @@ package pl.kluczewski.currency_converter.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.kluczewski.currency_converter.model.AllCurrencyDto;
-import pl.kluczewski.currency_converter.model.CurrencyTable;
+import pl.kluczewski.currency_converter.model.CurrencyDto;
 import pl.kluczewski.currency_converter.webclient.CurrencyClient;
 
 @Service
@@ -12,11 +12,15 @@ public class CurrencyService {
 
     private final CurrencyClient currencyClient;
 
-    public CurrencyTable getValue() {
-        return currencyClient.getValueForCurrency();
-    }
-
     public AllCurrencyDto getAllValue() {
         return currencyClient.getValueForAllCurrency();
+    }
+
+    public CurrencyDto getValueFromPln(String currency, double quantity) {
+        return currencyClient.getValueFromPln(currency, quantity);
+    }
+
+    public CurrencyDto getValueToPln(String currency, double quantity) {
+        return currencyClient.getValueToPln(currency, quantity);
     }
 }

@@ -3,7 +3,7 @@ package pl.kluczewski.currency_converter.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import pl.kluczewski.currency_converter.model.AllCurrencyDto;
-import pl.kluczewski.currency_converter.model.CurrencyTable;
+import pl.kluczewski.currency_converter.model.CurrencyDto;
 import pl.kluczewski.currency_converter.service.CurrencyService;
 
 @RestController
@@ -14,13 +14,18 @@ public class CurrencyController {
 
     private final CurrencyService currencyService;
 
-    @GetMapping("/table")
-    public CurrencyTable getCurrencyTable() {
-        return currencyService.getValue();
-    }
-
     @GetMapping("/all")
     public AllCurrencyDto getAllCurrency() {
         return currencyService.getAllValue();
+    }
+
+    @GetMapping("/from/{currency}/{quantity}")
+    public CurrencyDto getValueFromPln(@PathVariable String currency, @PathVariable double quantity) {
+        return currencyService.getValueFromPln(currency, quantity);
+    }
+
+    @GetMapping("/to/{currency}/{quantity}")
+    public CurrencyDto getValueToPln(@PathVariable String currency, @PathVariable double quantity) {
+        return currencyService.getValueToPln(currency, quantity);
     }
 }

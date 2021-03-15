@@ -2,11 +2,12 @@ package pl.kluczewski.currency_converter.webclient;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import pl.kluczewski.currency_converter.Converter.Convert;
 import pl.kluczewski.currency_converter.model.AllCurrencyDto;
-import pl.kluczewski.currency_converter.model.CurrencyTable;
+import pl.kluczewski.currency_converter.model.CurrencyDto;
 import pl.kluczewski.currency_converter.webclient.dto.AllRatesDto;
 import pl.kluczewski.currency_converter.webclient.dto.NbpAllCurrencyDto;
-import pl.kluczewski.currency_converter.webclient.dto.NbpAllTableDto;
+import pl.kluczewski.currency_converter.webclient.dto.NbpCurrencyDto;
 
 import java.util.stream.Collectors;
 
@@ -15,27 +16,43 @@ public class CurrencyClient {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
+    private <T> T callGetMethod(String url, Class<T> responseType, Object... objects) {
+        return restTemplate.getForObject(url, responseType, objects);
+    }
+
     public AllCurrencyDto getValueForAllCurrency() {
-        NbpAllCurrencyDto[] currencyDto = callGetMethod("http://api.nbp.pl/api/exchangerates/tables/A",
-                NbpAllCurrencyDto[].class);
+        NbpAllCurrencyDto nbpAllCurrencyDto = callGetMethod("http://api.nbp.pl/api/exchangerates/tables/A",
+                NbpAllCurrencyDto[].class)[0];
 
         return AllCurrencyDto.builder()
-                .rates(currencyDto[0]
+                .rates(nbpAllCurrencyDto
                         .getRates()
                         .stream()
                         .collect(Collectors.toMap(AllRatesDto::getCode, AllRatesDto::getMid)))
                 .base("PLN")
+                .effectiveDate(nbpAllCurrencyDto.getEffectiveDate())
                 .build();
     }
 
-    public CurrencyTable getValueForCurrency() {
-        NbpAllTableDto[] currencyTable = callGetMethod("http://api.nbp.pl/api/exchangerates/tables/A",
-                NbpAllTableDto[].class);
+    public CurrencyDto getValueFromPln(String currency, double quantity) {
+        NbpCurrencyDto nbpCurrencyDto = callGetMethod("http://api.nbp.pl/api/exchangerates/rates/a/{currency}/",
+                NbpCurrencyDto.class, currency);
 
-        return null;          //todo builder
+        return CurrencyDto.builder()
+                .mid(nbpCurrencyDto.getMid())
+                .result(Convert.fromPln(quantity, nbpCurrencyDto.getMid()))
+                .effectiveDate(nbpCurrencyDto.getEffectiveDate())
+                .build();
     }
 
-    private <T> T callGetMethod(String url, Class<T> responseType, Object... objects) {
-        return restTemplate.getForObject(url, responseType, objects);
+    public CurrencyDto getValueToPln(String currency, double quantity) {
+        NbpCurrencyDto nbpCurrencyDto = callGetMethod("http://api.nbp.pl/api/exchangerates/rates/a/{currency}/",
+                NbpCurrencyDto.class, currency);
+
+        return CurrencyDto.builder()
+                .mid(nbpCurrencyDto.getMid())
+                .result(Convert.toPln(quantity, nbpCurrencyDto.getMid()))
+                .effectiveDate(nbpCurrencyDto.getEffectiveDate())
+                .build();
     }
 }

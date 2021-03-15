@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class RatesDto {
-    private String currency;
-    private String code;
+    private String no;
+    private String effectiveDate;
     private double mid;
 }

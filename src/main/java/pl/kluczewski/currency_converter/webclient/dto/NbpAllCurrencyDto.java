@@ -7,4 +7,5 @@ import java.util.List;
 @Getter
 public class NbpAllCurrencyDto {
     private List<AllRatesDto> rates;
+    private String effectiveDate;
 }
