@@ -20,7 +20,15 @@ public class CurrencyService {
         return currencyClient.getValueFromPln(currency, quantity);
     }
 
+    public CurrencyDto getValueFromPln(String currency, double quantity, String date) {
+        return currencyClient.getValueFromPln(currency, quantity, date);
+    }
+
     public CurrencyDto getValueToPln(String currency, double quantity) {
         return currencyClient.getValueToPln(currency, quantity);
+    }
+
+    public CurrencyDto getValueToPln(String currency, double quantity, String date) {
+        return currencyClient.getValueToPln(currency, quantity, date);
     }
 }

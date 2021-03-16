@@ -6,6 +6,7 @@ import pl.kluczewski.currency_converter.model.AllCurrencyDto;
 import pl.kluczewski.currency_converter.model.CurrencyDto;
 import pl.kluczewski.currency_converter.service.CurrencyService;
 
+
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:3000")
@@ -24,8 +25,18 @@ public class CurrencyController {
         return currencyService.getValueFromPln(currency, quantity);
     }
 
+    @GetMapping("/from/{currency}/{quantity}/{date}")
+    public CurrencyDto getValueFromPln(@PathVariable String currency, @PathVariable double quantity, @PathVariable String date) {
+        return currencyService.getValueFromPln(currency, quantity, date);
+    }
+
     @GetMapping("/to/{currency}/{quantity}")
     public CurrencyDto getValueToPln(@PathVariable String currency, @PathVariable double quantity) {
         return currencyService.getValueToPln(currency, quantity);
+    }
+
+    @GetMapping("/to/{currency}/{quantity}/{date}")
+    public CurrencyDto getValueToPln(@PathVariable String currency, @PathVariable double quantity, @PathVariable String date) {
+        return currencyService.getValueToPln(currency, quantity, date);
     }
 }

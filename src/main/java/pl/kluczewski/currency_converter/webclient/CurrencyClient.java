@@ -2,7 +2,7 @@ package pl.kluczewski.currency_converter.webclient;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import pl.kluczewski.currency_converter.Converter.Convert;
+import pl.kluczewski.currency_converter.converter.Convert;
 import pl.kluczewski.currency_converter.model.AllCurrencyDto;
 import pl.kluczewski.currency_converter.model.CurrencyDto;
 import pl.kluczewski.currency_converter.webclient.dto.AllRatesDto;
@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 public class CurrencyClient {
 
     private final RestTemplate restTemplate = new RestTemplate();
+    private final Convert convert = new Convert();
 
     private <T> T callGetMethod(String url, Class<T> responseType, Object... objects) {
         return restTemplate.getForObject(url, responseType, objects);
@@ -40,7 +41,18 @@ public class CurrencyClient {
 
         return CurrencyDto.builder()
                 .mid(nbpCurrencyDto.getMid())
-                .result(Convert.fromPln(quantity, nbpCurrencyDto.getMid()))
+                .result(convert.fromPln(quantity, nbpCurrencyDto.getMid()))
+                .effectiveDate(nbpCurrencyDto.getEffectiveDate())
+                .build();
+    }
+
+    public CurrencyDto getValueFromPln(String currency, double quantity, String date) {
+        NbpCurrencyDto nbpCurrencyDto = callGetMethod("http://api.nbp.pl/api/exchangerates/rates/a/{currency}/{date}/",
+                NbpCurrencyDto.class, currency, date);
+
+        return CurrencyDto.builder()
+                .mid(nbpCurrencyDto.getMid())
+                .result(convert.fromPln(quantity, nbpCurrencyDto.getMid()))
                 .effectiveDate(nbpCurrencyDto.getEffectiveDate())
                 .build();
     }
@@ -51,7 +63,18 @@ public class CurrencyClient {
 
         return CurrencyDto.builder()
                 .mid(nbpCurrencyDto.getMid())
-                .result(Convert.toPln(quantity, nbpCurrencyDto.getMid()))
+                .result(convert.toPln(quantity, nbpCurrencyDto.getMid()))
+                .effectiveDate(nbpCurrencyDto.getEffectiveDate())
+                .build();
+    }
+
+    public CurrencyDto getValueToPln(String currency, double quantity, String date) {
+        NbpCurrencyDto nbpCurrencyDto = callGetMethod("http://api.nbp.pl/api/exchangerates/rates/a/{currency}/{date}/",
+                NbpCurrencyDto.class, currency, date);
+
+        return CurrencyDto.builder()
+                .mid(nbpCurrencyDto.getMid())
+                .result(convert.toPln(quantity, nbpCurrencyDto.getMid()))
                 .effectiveDate(nbpCurrencyDto.getEffectiveDate())
                 .build();
     }
