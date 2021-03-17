@@ -6,17 +6,18 @@ import pl.kluczewski.currency_converter.model.AllCurrencyDto;
 import pl.kluczewski.currency_converter.model.CurrencyDto;
 import pl.kluczewski.currency_converter.service.CurrencyService;
 
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/currency")
 public class CurrencyController {
 
     private final CurrencyService currencyService;
 
     @GetMapping("/all")
-    public AllCurrencyDto getAllCurrency() {
+    public List<AllCurrencyDto> getAllCurrency() {
         return currencyService.getAllValue();
     }
 

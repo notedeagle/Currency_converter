@@ -1,6 +1,10 @@
 package pl.kluczewski.currency_converter.webclient.dto;
 
+import lombok.Getter;
+
+@Getter
 public class NbpCurrencyDto {
+    private String code;
     private RatesDto[] rates;
 
     public RatesDto[] getRates() {

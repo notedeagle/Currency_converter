@@ -6,13 +6,16 @@ import pl.kluczewski.currency_converter.model.AllCurrencyDto;
 import pl.kluczewski.currency_converter.model.CurrencyDto;
 import pl.kluczewski.currency_converter.webclient.CurrencyClient;
 
+import java.util.List;
+
+
 @Service
 @RequiredArgsConstructor
 public class CurrencyService {
 
     private final CurrencyClient currencyClient;
 
-    public AllCurrencyDto getAllValue() {
+    public List<AllCurrencyDto> getAllValue() {
         return currencyClient.getValueForAllCurrency();
     }
 
