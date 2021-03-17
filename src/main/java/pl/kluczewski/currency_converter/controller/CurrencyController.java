@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://front-currency-converter.herokuapp.com/")
 @RequestMapping("/currency")
 public class CurrencyController {
 
