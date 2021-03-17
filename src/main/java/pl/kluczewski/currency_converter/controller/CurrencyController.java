@@ -8,9 +8,9 @@ import pl.kluczewski.currency_converter.service.CurrencyService;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin
 @RequestMapping("/currency")
 public class CurrencyController {
 
