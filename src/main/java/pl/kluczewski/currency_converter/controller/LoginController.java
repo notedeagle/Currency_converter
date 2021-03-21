@@ -9,4 +9,9 @@ public class LoginController {
 
     @PostMapping("/login")
     public void login(@RequestBody LoginCredentials credentials) {}
+
+    @GetMapping("/secured")
+    public String secured() {
+        return "secured";
+    }
 }
