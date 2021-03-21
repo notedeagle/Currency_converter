@@ -14,8 +14,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.sql.DataSource;
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -86,4 +90,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new JdbcUserDetailsManager(dataSource);
     }
 
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        source.registerCorsConfiguration("/**", config.applyPermitDefaultValues());
+        config.setExposedHeaders(Arrays.asList("Authorization"));
+        return source;
+    }
 }
