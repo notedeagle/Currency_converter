@@ -19,11 +19,11 @@ class ConvertTest {
 
     @Test
     public void fromPln() {
-       assertEquals(convert.fromPln(quantity, bid), 6203.25);
+       assertEquals(convert.fromPln(quantity, bid), 362.71);
     }
 
     @Test
     public void toPln() {
-        assertEquals(convert.toPln(quantity, bid), 362.71);
+        assertEquals(convert.toPln(quantity, bid), 6203.25);
     }
 }
