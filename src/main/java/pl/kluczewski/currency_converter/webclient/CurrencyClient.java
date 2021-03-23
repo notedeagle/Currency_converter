@@ -8,6 +8,7 @@ import pl.kluczewski.currency_converter.model.CurrencyDto;
 import pl.kluczewski.currency_converter.webclient.dto.NbpAllCurrencyDto;
 import pl.kluczewski.currency_converter.webclient.dto.NbpCurrencyDto;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class CurrencyClient {
         return allCurrencyDto;
     }
 
-    public CurrencyDto getValueFromPln(String currency, double quantity) {
+    public CurrencyDto getValueFromPln(String currency, BigDecimal quantity) {
         NbpCurrencyDto nbpCurrencyDto = callGetMethod("http://api.nbp.pl/api/exchangerates/rates/a/{currency}/",
                 NbpCurrencyDto.class, currency);
 
@@ -50,7 +51,7 @@ public class CurrencyClient {
                 .build();
     }
 
-    public CurrencyDto getValueFromPln(String currency, double quantity, String date) {
+    public CurrencyDto getValueFromPln(String currency, BigDecimal quantity, String date) {
         NbpCurrencyDto nbpCurrencyDto = callGetMethod("http://api.nbp.pl/api/exchangerates/rates/a/{currency}/{date}/",
                 NbpCurrencyDto.class, currency, date);
 
@@ -62,7 +63,7 @@ public class CurrencyClient {
                 .build();
     }
 
-    public CurrencyDto getValueToPln(String currency, double quantity) {
+    public CurrencyDto getValueToPln(String currency, BigDecimal quantity) {
         NbpCurrencyDto nbpCurrencyDto = callGetMethod("http://api.nbp.pl/api/exchangerates/rates/a/{currency}/",
                 NbpCurrencyDto.class, currency);
 
@@ -73,7 +74,7 @@ public class CurrencyClient {
                 .build();
     }
 
-    public CurrencyDto getValueToPln(String currency, double quantity, String date) {
+    public CurrencyDto getValueToPln(String currency, BigDecimal quantity, String date) {
         NbpCurrencyDto nbpCurrencyDto = callGetMethod("http://api.nbp.pl/api/exchangerates/rates/a/{currency}/{date}/",
                 NbpCurrencyDto.class, currency, date);
 

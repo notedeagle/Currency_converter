@@ -2,6 +2,8 @@ package pl.kluczewski.currency_converter.webclient.dto;
 
 import lombok.Getter;
 
+import java.math.BigDecimal;
+
 @Getter
 public class NbpCurrencyDto {
     private String code;
@@ -11,7 +13,7 @@ public class NbpCurrencyDto {
         return rates;
     }
 
-    public double getMid() {
+    public BigDecimal getMid() {
         return rates[0].getMid();
     }
 
