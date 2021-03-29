@@ -25,7 +25,6 @@ import java.util.Collections;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final DataSource dataSource;
     private final ObjectMapper objectMapper;
     private final RestAuthenticationSuccessHandler successHandler;
     private final RestAuthenticationFailureHandler failureHandler;
@@ -33,12 +32,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserService userService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public SecurityConfig(DataSource dataSource, ObjectMapper objectMapper,
+    public SecurityConfig(ObjectMapper objectMapper,
                           RestAuthenticationSuccessHandler successHandler,
                           RestAuthenticationFailureHandler failureHandler,
                           @Value("${jwt.secret}") String secret,
                           UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.dataSource = dataSource;
         this.objectMapper = objectMapper;
         this.successHandler = successHandler;
         this.failureHandler = failureHandler;
@@ -49,10 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
         auth.jdbcAuthentication()
-                .usersByUsernameQuery("select email,password,enabled "
-                        + "from user "
-                        + "where email = ?");
+                .usersByUsernameQuery("select email,password,enabled from user where email = ?");
 
         auth.authenticationProvider(daoAuthenticationProvider());
     }
