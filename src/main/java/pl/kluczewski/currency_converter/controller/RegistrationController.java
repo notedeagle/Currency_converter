@@ -1,10 +1,7 @@
 package pl.kluczewski.currency_converter.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.kluczewski.currency_converter.config.RegistrationCredentials;
 import pl.kluczewski.currency_converter.service.RegistrationService;
 
@@ -18,5 +15,10 @@ public class RegistrationController {
     @PostMapping("/register")
     public void register(@RequestBody RegistrationCredentials request) {
         registrationService.register(request);
+    }
+
+    @GetMapping("/confirm")
+    public void confirmToken(@RequestParam("token") String token) {
+        registrationService.confirmToken(token);
     }
 }

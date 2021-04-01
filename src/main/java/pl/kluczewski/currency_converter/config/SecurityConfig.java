@@ -66,6 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-resources/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/register/**").permitAll() //register
+                .antMatchers("/confirm/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .cors()
