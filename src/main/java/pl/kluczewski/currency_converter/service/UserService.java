@@ -28,7 +28,7 @@ public class UserService implements UserDetailsService {
                 new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, email)));
     }
 
-    public void singUpUser(User user) {
+    public String singUpUser(User user) {
         boolean userExist = userRepository.findByEmail(user.getUsername())
                 .isPresent();
 
@@ -36,10 +36,10 @@ public class UserService implements UserDetailsService {
             throw new IllegalStateException("Email taken");
         }
 
-        String encodedPassWord = bCryptPasswordEncoder
+        String encodedPassword = bCryptPasswordEncoder
                 .encode(user.getPassword());
 
-        user.setPassword(encodedPassWord);
+        user.setPassword(encodedPassword);
 
         userRepository.save(user);
 
@@ -48,9 +48,9 @@ public class UserService implements UserDetailsService {
         ConfirmationToken confirmationToken = new ConfirmationToken(token, LocalDateTime.now(),
                 LocalDateTime.now().plusMinutes(15), user);
 
-        confirmationTokenService.saveConfimationToken(confirmationToken);
+        confirmationTokenService.saveConfirmationToken(confirmationToken);
 
-        //TODO: SEND EMAIL
+        return token;
     }
 
     public void enableUser(String email) {

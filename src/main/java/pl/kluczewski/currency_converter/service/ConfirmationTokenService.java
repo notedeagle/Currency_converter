@@ -14,7 +14,7 @@ public class ConfirmationTokenService {
 
     private final ConfirmationTokenRepository confirmationTokenRepository;
 
-    public void saveConfimationToken(ConfirmationToken token) {
+    public void saveConfirmationToken(ConfirmationToken token) {
         confirmationTokenRepository.save(token);
     }
 
@@ -22,7 +22,7 @@ public class ConfirmationTokenService {
         return confirmationTokenRepository.findByToken(token);
     }
 
-    public int setConfirmationTime(String token) {
-        return confirmationTokenRepository.updateConfirmationTime(token, LocalDateTime.now());
+    public void setConfirmationTime(String token) {
+        confirmationTokenRepository.updateConfirmationTime(token, LocalDateTime.now());
     }
 }

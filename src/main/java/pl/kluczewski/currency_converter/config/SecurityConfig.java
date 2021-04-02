@@ -18,7 +18,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import pl.kluczewski.currency_converter.service.UserService;
 
-import javax.sql.DataSource;
 import java.util.Collections;
 
 @Configuration
