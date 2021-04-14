@@ -1,4 +1,4 @@
-package pl.kluczewski.currency_converter.config;
+package pl.kluczewski.currency_converter.config.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

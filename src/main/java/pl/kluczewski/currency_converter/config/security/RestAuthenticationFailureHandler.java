@@ -1,4 +1,4 @@
-package pl.kluczewski.currency_converter.config;
+package pl.kluczewski.currency_converter.config.security;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;

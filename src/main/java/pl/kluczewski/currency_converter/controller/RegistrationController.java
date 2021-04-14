@@ -2,7 +2,7 @@ package pl.kluczewski.currency_converter.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import pl.kluczewski.currency_converter.config.RegistrationCredentials;
+import pl.kluczewski.currency_converter.config.security.RegistrationCredentials;
 import pl.kluczewski.currency_converter.service.RegistrationService;
 
 @RestController

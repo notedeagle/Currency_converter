@@ -1,4 +1,4 @@
-package pl.kluczewski.currency_converter.config;
+package pl.kluczewski.currency_converter.config.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
@@ -90,7 +90,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
-
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         source.registerCorsConfiguration("/**", config.applyPermitDefaultValues());

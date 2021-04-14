@@ -1,4 +1,4 @@
-package pl.kluczewski.currency_converter.config;
+package pl.kluczewski.currency_converter.config.security;
 
 
 import com.auth0.jwt.JWT;

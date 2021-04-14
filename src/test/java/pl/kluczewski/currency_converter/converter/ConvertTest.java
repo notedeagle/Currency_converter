@@ -15,8 +15,8 @@ class ConvertTest {
     @BeforeEach
     public void setUp() {
         convert = new Convert();
-        quantity = BigDecimal.valueOf(1500);
-        bid = BigDecimal.valueOf(4.1355);
+        quantity = new BigDecimal(1500);
+        bid = new BigDecimal("4.1355");
     }
 
     @Test
@@ -27,5 +27,32 @@ class ConvertTest {
     @Test
     public void toPln() {
         assertEquals(BigDecimal.valueOf(6203.25), convert.toPln(quantity, bid));
+    }
+
+    @Test
+    public void shouldThrownIllegalArgumentExceptionOnNagativeQuantity() {
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> convert.fromPln(new BigDecimal(-100), bid)
+        );
+        assertEquals("Values must be greater then 0", exception.getMessage());
+    }
+
+    @Test
+    public void shouldThrownIllegalArgumentExceptionOnNagativeBid() {
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> convert.fromPln(quantity, new BigDecimal(-100))
+        );
+        assertEquals("Values must be greater then 0", exception.getMessage());
+    }
+
+    @Test
+    public void shouldThrownIllegalArgumentExceptionOnNagativeBidAndQuantity() {
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> convert.fromPln(new BigDecimal(-100), new BigDecimal(-100))
+        );
+        assertEquals("Values must be greater then 0", exception.getMessage());
     }
 }

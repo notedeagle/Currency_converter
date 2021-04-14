@@ -32,7 +32,7 @@ public class UserService implements UserDetailsService {
         boolean userExist = userRepository.findByEmail(user.getUsername())
                 .isPresent();
 
-        if(userExist) {
+        if (userExist) {
             throw new IllegalStateException("Email taken");
         }
 

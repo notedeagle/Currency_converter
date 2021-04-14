@@ -3,7 +3,7 @@ package pl.kluczewski.currency_converter.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.kluczewski.currency_converter.config.RegistrationCredentials;
+import pl.kluczewski.currency_converter.config.security.RegistrationCredentials;
 import pl.kluczewski.currency_converter.email.EmailSender;
 import pl.kluczewski.currency_converter.model.entity.ConfirmationToken;
 import pl.kluczewski.currency_converter.model.entity.User;
@@ -25,7 +25,7 @@ public class RegistrationService {
 
         boolean isValidEmail = emailValidator.test(request.getEmail());
 
-        if(!isValidEmail) {
+        if (!isValidEmail) {
             throw new IllegalStateException("Email not valid");
         }
 
@@ -45,13 +45,13 @@ public class RegistrationService {
                 .orElseThrow(() ->
                         new IllegalStateException("Token not found"));
 
-        if(confirmationToken.getConfirmationTime() != null) {
+        if (confirmationToken.getConfirmationTime() != null) {
             throw new IllegalStateException("Email already confirmed");
         }
 
         LocalDateTime expiredTime = confirmationToken.getExpiredTime();
 
-        if(expiredTime.isBefore(LocalDateTime.now())) {
+        if (expiredTime.isBefore(LocalDateTime.now())) {
             throw new IllegalStateException("Token expired");
         }
 

@@ -10,7 +10,6 @@ import pl.kluczewski.currency_converter.webclient.dto.NbpCurrencyDto;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 
 
 @Component
@@ -23,11 +22,11 @@ public class CurrencyClient {
         return restTemplate.getForObject(url, responseType, objects);
     }
 
-    public List<AllCurrencyDto> getValueForAllCurrency() {
+    public ArrayList<AllCurrencyDto> getValueForAllCurrency() {
         NbpAllCurrencyDto nbpAllCurrencyDto = callGetMethod("http://api.nbp.pl/api/exchangerates/tables/A",
                 NbpAllCurrencyDto[].class)[0];
 
-        List<AllCurrencyDto> allCurrencyDto = new ArrayList<>();
+        ArrayList<AllCurrencyDto> allCurrencyDto = new ArrayList<>();
         allCurrencyDto.add(
                 AllCurrencyDto.builder()
                         .rates(nbpAllCurrencyDto.getRates())
